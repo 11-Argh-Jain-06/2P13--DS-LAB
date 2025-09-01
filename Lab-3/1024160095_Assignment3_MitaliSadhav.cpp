@@ -1,458 +1,286 @@
-/*Develop a menu driven program demonstrating the following operations on simple
-Queues: enqueue(), dequeue(), isEmpty(), isFull(), display(), and peek().*/
+/*Develop a menu driven program demonstrating the following operations on a Stack using array: (i) push(), (ii) pop(), (iii) isEmpty(), (iv) isFull(), (v) display(), and (vi) peek().*/
 
-#include <stdio.h>
-#include <stdlib.h>
-#define MAX 5   //size of queue
+#include <iostream>
+#include <cstdlib>
+using namespace std;
 
-int queue[MAX];
-int front = -1, rear = -1;
+#define MAX 5   //size
 
-int isEmpty() {
-    return (front == -1);
-}
+class Stack {
+private:
+    int arr[MAX];
+    int top;
 
-int isFull() {
-    return (rear == MAX - 1);
-}
+public:
+    Stack() { top = -1; }
 
-void enqueue(int value) {
-    if (isFull()) {
-        printf("Queue is FULL! Cannot insert %d\n", value);
-        return;
+    bool isEmpty() {
+        return (top == -1);
     }
-    if (front == -1) front = 0; 
-    rear++;
-    queue[rear] = value;
-    printf("%d enqueued into queue.\n", value);
-}
 
-void dequeue() {
-    if (isEmpty()) {
-        printf("Queue is EMPTY! Cannot dequeue.\n");
-        return;
+    bool isFull() {
+        return (top == MAX - 1);
     }
-    printf("%d dequeued from queue.\n", queue[front]);
-    if (front == rear) {
-        front = rear = -1;
-    } else {
-        front++;
-    }
-}
 
-void peek() {
-    if (isEmpty()) {
-        printf("Queue is EMPTY! No front element.\n");
-    } else {
-        printf("Front element is: %d\n", queue[front]);
+    void push(int val) {
+        if (isFull()) {
+            cout << "overflow" << val << endl;
+        } else {
+            arr[++top] = val;
+            cout << "\n" << val << " pushed"<<endl;
+        }
     }
-}
 
-void display() {
-    if (isEmpty()) {
-        printf("Queue is EMPTY!\n");
-        return;
+    void pop() {
+        if (isEmpty()) {
+            cout << "underflow"<<endl;
+        } else {
+            cout << arr[top--] << "popped"<<endl;
+        }
     }
-    printf("Queue elements are: ");
-    for (int i = front; i <= rear; i++) {
-        printf("%d ", queue[i]);
+
+    void peek() {
+        if (isEmpty()) {
+            cout << "stack empty"<<endl;
+        } else {
+            cout << "top element is: " << arr[top] << endl;
+        }
     }
-    printf("\n");
-}
+
+    void display() {
+        if (isEmpty()) {
+            cout << "stack is empty"<<endl;
+        } else {
+            cout << "stack elements are: "<<endl;
+            for (int i = top; i >= 0; i--) {
+                cout << arr[i] << " ";
+            }
+            cout << endl;
+        }
+    }
+};
 
 int main() {
-    int choice, value;
+    Stack s;
+    int choice, val;
 
-    while (1) {
-        printf("\nQueue Menu\n");
-        printf("1.Insert\n");
-        printf("2.Delete\n");
-        printf("3.PeekFront\n");
-        printf("4. Display Queue\n");
-        printf("5. Check ifEmpty\n");
-        printf("6. Check ifFull\n");
-        printf("7. Exit\n");
-        printf("Enter your choice: ");
-        scanf("%d", &choice);
+    while (true) {
+        cout << "1.push"<<endl;
+        cout << "2.pop"<<endl;
+        cout << "3.peek"<<endl;
+        cout << "4.display"<<endl;
+        cout << "5.isEmpty"<<endl;
+        cout << "6.isFull"<<endl;
+        cout << "7.exit"<<endl;
+        cout << "choice: ";
+        cin >> choice;
 
         switch (choice) {
         case 1:
-            printf("Enter value to enqueue: ");
-            scanf("%d", &value);
-            enqueue(value);
+            cout << "enter value to push: ";
+            cin >> val;
+            s.push(val);
             break;
         case 2:
-            dequeue();
+            s.pop();
             break;
         case 3:
-            peek();
+            s.peek();
             break;
         case 4:
-            display();
+            s.display();
             break;
         case 5:
-            if (isEmpty())
-                printf("Queue is EMPTY.\n");
+            if (s.isEmpty())
+                cout << "stack is empty"<<endl;
             else
-                printf("Queue is NOT EMPTY.\n");
+                cout << "stack is not empty"<<endl;
             break;
         case 6:
-            if (isFull())
-                printf("Queue is FULL.\n");
+            if (s.isFull())
+                cout << "stack is full"<<endl;
             else
-                printf("Queue is NOT FULL.\n");
+                cout << "stack is not full"<<endl;
             break;
         case 7:
             exit(0);
         default:
-            printf("Invalid choice! Please try again.\n");
+            cout << "invalid choice"<<endl;
         }
     }
-    return 0;
-}
-
-
-/*Develop a menu driven program demonstrating the following operations on Circular Queues:
-enqueue(), dequeue(), isEmpty(), isFull(), display(), and peek().*/
-
-#include <stdio.h>
-#include <stdlib.h>
-#define MAX 5 
-
-int queue[MAX];
-int front = -1, rear = -1;
-
-int isEmpty() {
-    return (front == -1);
-}
-
-int isFull() {
-    return ((rear + 1) % MAX == front);
-}
-
-void enqueue(int value) {
-    if (isFull()) {
-        printf("Queue is FULL! Cannot insert %d\n", value);
-        return;
-    }
-    if (front == -1) 
-        front = 0;
-    rear = (rear + 1) % MAX;
-    queue[rear] = value;
-    printf("%d enqueued into queue.\n", value);
-}
-
-void dequeue() {
-    if (isEmpty()) {
-        printf("Queue is EMPTY! Cannot dequeue.\n");
-        return;
-    }
-    printf("%d dequeued from queue.\n", queue[front]);
-    if (front == rear) {
-        front = rear = -1;
-    } else {
-        front = (front + 1) % MAX;
-    }
-}
-
-void peek() {
-    if (isEmpty()) {
-        printf("Queue is EMPTY! No front element.\n");
-    } else {
-        printf("Front element is: %d\n", queue[front]);
-    }
-}
-
-void display() {
-    if (isEmpty()) {
-        printf("Queue is EMPTY!\n");
-        return;
-    }
-    printf("Queue elements are: ");
-    int i = front;
-    while (1) {
-        printf("%d ", queue[i]);
-        if (i == rear) break;
-        i = (i + 1) % MAX;
-    }
-    printf("\n");
-}
-
-int main() {
-    int choice, value;
-
-    while (1) {
-        printf("\nCircular Queue Menu\n");
-        printf("1. Enqueue\n");
-        printf("2. Dequeue\n");
-        printf("3. Peek\n");
-        printf("4. Display Queue\n");
-        printf("5. Check if Empty\n");
-        printf("6. Check if Full\n");
-        printf("7. Exit\n");
-        printf("Enter your choice: ");
-        scanf("%d", &choice);
-
-        switch (choice) {
-        case 1:
-            printf("Enter value to enqueue: ");
-            scanf("%d", &value);
-            enqueue(value);
-            break;
-        case 2:
-            dequeue();
-            break;
-        case 3:
-            peek();
-            break;
-        case 4:
-            display();
-            break;
-        case 5:
-            if (isEmpty())
-                printf("Queue is EMPTY.\n");
-            else
-                printf("Queue is NOT EMPTY.\n");
-            break;
-        case 6:
-            if (isFull())
-                printf("Queue is FULL.\n");
-            else
-                printf("Queue is NOT FULL.\n");
-            break;
-        case 7:
-            exit(0);
-        default:
-            printf("Invalid choice! Please try again.\n");
-        }
-    }
-    return 0;
-}
-
-/*Write a program interleave the first half of the queue with second half.
-Sample I/P: 4 7 11 20 5 9 Sample O/P: 4 20 7 5 11 9*/
-
-#include <stdio.h>
-#define MAX 100
-
-void interleaveQueue(int arr[], int n) {
-    if (n % 2 != 0) {
-        printf("Queue size must be even to interleave.\n");
-        return;
-    }
-
-    int half = n / 2;
-    int result[MAX];
-    int idx = 0;
-
-    for (int i = 0; i < half; i++) {
-        result[idx++] = arr[i];      
-        result[idx++] = arr[i + half];
-    }
-
-    printf("Interleaved Queue: ");
-    for (int i = 0; i < n; i++) {
-        printf("%d ", result[i]);
-    }
-    printf("\n");
-}
-
-int main() {
-    int arr[] = {4, 7, 11, 20, 5, 9}; 
-    int n = sizeof(arr) / sizeof(arr[0]);
-
-    printf("Original Queue: ");
-    for (int i = 0; i < n; i++) {
-        printf("%d ", arr[i]);
-    }
-    printf("\n");
-
-    interleaveQueue(arr, n);
 
     return 0;
 }
 
-/*Write a program to find first non-repeating character in a string using Queue.
-Sample I/P: a a b c Sample O/P: a -1 b b*/
 
-#include <stdio.h>
-#include <string.h>
-#define MAX 256  
 
-#define SIZE 1000
-char queue[SIZE];
-int front = 0, rear = -1;
 
-void enqueue(char c) {
-    if (rear < SIZE - 1) {
-        queue[++rear] = c;
-    }
-}
-
-void dequeue() {
-    if (front <= rear) {
-        front++;
-    }
-}
-
-int isEmpty() {
-    return (front > rear);
-}
-
-char getFront() {
-    return queue[front];
-}
-
-void resetQueue() {
-    front = 0;
-    rear = -1;
-}
-
-int main() {
-    char str[] = "aabc";   
-    int freq[MAX] = {0};
-    int n = strlen(str);
-
-    printf("Input: %s\n", str);
-    printf("Output: ");
-
-    resetQueue();
-
-    for (int i = 0; i < n; i++) {
-        char ch = str[i];
-        freq[ch]++;
-        enqueue(ch);
-
-        while (!isEmpty() && freq[getFront()] > 1) {
-            dequeue();
-        }
-
-        if (isEmpty())
-            printf("-1 ");
-        else
-            printf("%c ", getFront());
-    }
-
-    printf("\n");
-    return 0;
-}
-
-/*Write a program to implement a stack using (a) Two queues and (b) One Queue*/
-
-a. Using two queues:
+/*Given a string, reverse it using STACK. For example “DataStructure” should be output as “erutcurtSataD.”*/
 
 #include <iostream>
-#include <queue>
+#include <stack>
+#include <string>
 using namespace std;
 
-queue<int> q1, q2; // two queues
-
-// Push operation
-void push(int x) {
-    q2.push(x);
-
-    // move all elements of q1 into q2
-    while (!q1.empty()) {
-        q2.push(q1.front());
-        q1.pop();
+string reverseString(string str) {
+    stack<char> s;
+    
+    for (char ch : str) {
+        s.push(ch);
     }
 
-    // swap q1 and q2
-    swap(q1, q2);
-}
-
-// Pop operation
-void pop() {
-    if (q1.empty()) {
-        cout << "Stack is empty\n";
-        return;
+    string reversed = "";
+    while (!s.empty()) {
+        reversed += s.top();
+        s.pop();
     }
-    q1.pop();
-}
 
-// Top element
-int top() {
-    if (q1.empty()) return -1;
-    return q1.front();
-}
-
-// Current size
-int size() {
-    return q1.size();
+    return reversed;
 }
 
 int main() {
-    push(1);
-    push(2);
-    push(3);
+    string input;
+    cout << "enter a string: ";
+    getline(cin, input); 
+    cout << "reversed String: " << reverseString(input) << endl;
 
-    cout << "Current size: " << size() << endl;
-
-    cout << top() << endl; // 3
-    pop();
-    cout << top() << endl; // 2
-    pop();
-    cout << top() << endl; // 1
-
-    cout << "Current size: " << size() << endl;
     return 0;
 }
 
-b. Using one queue
+
+//Write a program that checks if an expression has balanced parentheses.
 
 #include <iostream>
-#include <queue>
+#include <stack>
 using namespace std;
 
-queue<int> q; //one queue
+bool isMatching(char open, char close) {
+    return (open == '(' && close == ')');
+}
 
-// Push operation
-void push(int x) {
-    int s = q.size();
-    q.push(x);
+bool isBalanced(string expr) {
+    stack<char> s;
 
-    // Rotate previous elements behind x
-    for (int i = 0; i < s; i++) {
-        q.push(q.front());
-        q.pop();
+    for (char ch : expr) {
+        if (ch == '(' || ch == '{' || ch == '[') {
+            s.push(ch);
+        }
+        else if (ch == ')' || ch == '}' || ch == ']') {
+            if (s.empty() || !isMatching(s.top(), ch)) {
+                return false;  
+            }
+            s.pop();
+        }
     }
-}
 
-// Pop operation
-void pop() {
-    if (q.empty()) {
-        cout << "Stack is empty\n";
-        return;
-    }
-    q.pop();
-}
-
-// Top element
-int top() {
-    if (q.empty()) return -1;
-    return q.front();
-}
-
-// Current size
-int size() {
-    return q.size();
+    return s.empty();  
 }
 
 int main() {
-    push(1);
-    push(2);
-    push(3);
+    string expr;
+    cout << "enter an expression: ";
+    cin >> expr;
 
-    cout << "Current size: " << size() << endl;
+    if (isBalanced(expr))
+        cout << "balanced expression " << endl;
+    else
+        cout << "unbalanced expression" << endl;
 
-    cout << top() << endl;
-    pop();
-    cout << top() << endl; 
-    pop();
-    cout << top() << endl; 
-
-    cout << "Current size: " << size() << endl;
     return 0;
 }
 
 
+//Write a program to convert an Infix expression into a Postfix expression.
+
+#include <iostream>
+#include <stack>
+using namespace std;
+
+int precedence(char op) {
+    if (op == '+' || op == '-') return 1;
+    if (op == '*' || op == '/') return 2;
+    if (op == '^') return 3;
+    return 0;
+}
+
+string infixToPostfix(string infix) {
+    stack<char> st;
+    string postfix = "";
+
+    for (char c : infix) {
+        if (isalnum(c)) postfix += c;
+        else if (c == '(') st.push(c);
+        else if (c == ')') {
+            while (!st.empty() && st.top() != '(') {
+                postfix += st.top();
+                st.pop();
+            }
+            st.pop();
+        }
+        else {
+            while (!st.empty() && precedence(st.top()) >= precedence(c)) {
+                postfix += st.top();
+                st.pop();
+            }
+            st.push(c);
+        }
+    }
+
+    while (!st.empty()) {
+        postfix += st.top();
+        st.pop();
+    }
+
+    return postfix;
+}
+
+int main() {
+    string infix = "A*(B*C+D/E^F)";
+    cout << "Infix: " << infix << endl;
+    cout << "Postfix: " << infixToPostfix(infix) << endl;
+    return 0;
+}
+
+
+//Write a program for the evaluation of a Postfix expression.
+
+#include <iostream>
+#include <stack>
+#include <cctype> 
+using namespace std;
+
+int evaluatePostfix(string postfix) {
+    stack<int> s;
+
+    for (char ch : postfix) {
+        if (isdigit(ch)) {
+            s.push(ch - '0');
+        }
+        else {
+            int a = s.top(); s.pop();
+            int b = s.top(); s.pop();
+            switch (ch) {
+                case '+': s.push(b + a); break;
+                case '-': s.push(b - a); break;
+                case '*': s.push(b * a); break;
+                case '/': s.push(b / a); break;
+                case '^': {
+                    int result = 1;
+                    for (int i = 0; i < a; i++) result *= b;
+                    s.push(result);
+                    break;
+                }
+            }
+        }
+    }
+    return s.top();
+}
+
+int main() {
+    string postfix = "376+/9^8"; 
+
+    cout << "Postfix Expression: " << postfix << endl;
+    cout << "Result: " << evaluatePostfix(postfix) << endl;
+
+    return 0;
+}
