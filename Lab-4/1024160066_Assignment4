@@ -1,0 +1,560 @@
+// Q1.
+// #include <iostream>
+// using namespace std;
+
+// class Queue {
+//     int size, front, rear;
+//     int* arr;
+
+// public:
+//     Queue(int s) {
+//         size = s;
+//         arr = new int[size];
+//         front = rear = -1;
+//     }
+
+//     bool isEmpty() {
+//         return front == -1;
+//     }
+
+//     bool isFull() {
+//         return (rear + 1) % size == front;
+//     }
+
+//     void enqueue(int item) {
+//         if (isFull()) {
+//             cout << "Queue is full! Cannot enqueue." << endl;
+//             return;
+//         }
+//         if (isEmpty()) {
+//             front = 0;
+//         }
+//         rear = (rear + 1) % size;
+//         arr[rear] = item;
+//         cout << "Enqueued: " << item << endl;
+//     }
+
+//     void dequeue() {
+//         if (isEmpty()) {
+//             cout << "Queue is empty! Cannot dequeue." << endl;
+//             return;
+//         }
+//         int item = arr[front];
+//         if (front == rear) {
+//             front = rear = -1;
+//         } else {
+//             front = (front + 1) % size;
+//         }
+//         cout << "Dequeued: " << item << endl;
+//     }
+
+//     void peek() {
+//         if (isEmpty()) {
+//             cout << "Queue is empty! Nothing to peek." << endl;
+//         } else {
+//             cout << "Front element: " << arr[front] << endl;
+//         }
+//     }
+
+//     void display() {
+//         if (isEmpty()) {
+//             cout << "Queue is empty!" << endl;
+//             return;
+//         }
+//         cout << "Queue elements: ";
+//         int i = front;
+//         while (true) {
+//             cout << arr[i] << " ";
+//             if (i == rear) break;
+//             i = (i + 1) % size;
+//         }
+//         cout << endl;
+//     }
+// };
+
+// int main() {
+//     int size;
+//     cout << "Enter the size of the queue: ";
+//     cin >> size;
+//     Queue q(size);
+
+//     while (true) {
+//         cout << "\nQueue Operations Menu:\n";
+//         cout << "1. Enqueue\n";
+//         cout << "2. Dequeue\n";
+//         cout << "3. Peek\n";
+//         cout << "4. Display\n";
+//         cout << "5. Check if Empty\n";
+//         cout << "6. Check if Full\n";
+//         cout << "7. Exit\n";
+//         cout << "Enter your choice: ";
+//         int choice;
+//         cin >> choice;
+
+//         if (choice == 1) {
+//             int item;
+//             cout << "Enter item to enqueue: ";
+//             cin >> item;
+//             q.enqueue(item);
+//         } else if (choice == 2) {
+//             q.dequeue();
+//         } else if (choice == 3) {
+//             q.peek();
+//         } else if (choice == 4) {
+//             q.display();
+//         } else if (choice == 5) {
+//             cout << (q.isEmpty() ? "Queue is empty." : "Queue is not empty.") << endl;
+//         } else if (choice == 6) {
+//             cout << (q.isFull() ? "Queue is full." : "Queue is not full.") << endl;
+//         } else if (choice == 7) {
+//             cout << "Exiting program." << endl;
+//             break;
+//         } else {
+//             cout << "Invalid choice! Please try again." << endl;
+//         }
+//     }
+
+//     return 0;
+// }
+// Q2.
+// #include <iostream>
+// using namespace std;
+
+// class CircularQueue {
+//     int size, front, rear;
+//     int* arr;
+
+// public:
+//     CircularQueue(int s) {
+//         size = s;
+//         arr = new int[size];
+//         front = rear = -1;
+//     }
+
+//     bool isEmpty() {
+//         return front == -1;
+//     }
+
+//     bool isFull() {
+//         return (rear + 1) % size == front;
+//     }
+
+//     void enqueue(int item) {
+//         if (isFull()) {
+//             cout << "Queue is full! Cannot enqueue." << endl;
+//             return;
+//         }
+//         if (isEmpty()) {
+//             front = rear = 0;
+//         } else {
+//             rear = (rear + 1) % size;
+//         }
+//         arr[rear] = item;
+//         cout << "Enqueued: " << item << endl;
+//     }
+
+//     void dequeue() {
+//         if (isEmpty()) {
+//             cout << "Queue is empty! Cannot dequeue." << endl;
+//             return;
+//         }
+//         int item = arr[front];
+//         if (front == rear) {
+//             front = rear = -1;
+//         } else {
+//             front = (front + 1) % size;
+//         }
+//         cout << "Dequeued: " << item << endl;
+//     }
+
+//     void peek() {
+//         if (isEmpty()) {
+//             cout << "Queue is empty! Nothing to peek." << endl;
+//         } else {
+//             cout << "Front element: " << arr[front] << endl;
+//         }
+//     }
+
+//     void display() {
+//         if (isEmpty()) {
+//             cout << "Queue is empty!" << endl;
+//             return;
+//         }
+//         cout << "Queue elements: ";
+//         int i = front;
+//         while (true) {
+//             cout << arr[i] << " ";
+//             if (i == rear) break;
+//             i = (i + 1) % size;
+//         }
+//         cout << endl;
+//     }
+// };
+
+// int main() {
+//     int size;
+//     cout << "Enter size of circular queue: ";
+//     cin >> size;
+//     CircularQueue q(size);
+
+//     while (true) {
+//         cout << "\nCircular Queue Operations Menu:\n";
+//         cout << "1. Enqueue\n";
+//         cout << "2. Dequeue\n";
+//         cout << "3. Peek\n";
+//         cout << "4. Display\n";
+//         cout << "5. Check if Empty\n";
+//         cout << "6. Check if Full\n";
+//         cout << "7. Exit\n";
+//         cout << "Enter your choice: ";
+//         int choice;
+//         cin >> choice;
+
+//         if (choice == 1) {
+//             int item;
+//             cout << "Enter item to enqueue: ";
+//             cin >> item;
+//             q.enqueue(item);
+//         } else if (choice == 2) {
+//             q.dequeue();
+//         } else if (choice == 3) {
+//             q.peek();
+//         } else if (choice == 4) {
+//             q.display();
+//         } else if (choice == 5) {
+//             cout << (q.isEmpty() ? "Queue is empty." : "Queue is not empty.") << endl;
+//         } else if (choice == 6) {
+//             cout << (q.isFull() ? "Queue is full." : "Queue is not full.") << endl;
+//         } else if (choice == 7) {
+//             cout << "Exiting program." << endl;
+//             break;
+//         } else {
+//             cout << "Invalid choice! Please try again." << endl;
+//         }
+//     }
+
+//     return 0;
+// }
+// Q3.
+// #include <iostream>
+// using namespace std;
+
+// class Queue {
+//     int* arr;
+//     int front, rear, size, capacity;
+
+// public:
+//     Queue(int cap) {
+//         capacity = cap;
+//         arr = new int[capacity];
+//         front = 0;
+//         rear = -1;
+//         size = 0;
+//     }
+
+//     bool isEmpty() { return size == 0; }
+//     bool isFull() { return size == capacity; }
+
+//     void enqueue(int val) {
+//         if (isFull()) {
+//             cout << "Queue is full!" << endl;
+//             return;
+//         }
+//         rear = (rear + 1) % capacity;
+//         arr[rear] = val;
+//         size++;
+//     }
+
+//     int dequeue() {
+//         if (isEmpty()) {
+//             cout << "Queue is empty!" << endl;
+//             return -1;
+//         }
+//         int val = arr[front];
+//         front = (front + 1) % capacity;
+//         size--;
+//         return val;
+//     }
+
+//     int peek() {
+//         if (isEmpty()) return -1;
+//         return arr[front];
+//     }
+
+//     int getSize() { return size; }
+
+//     void display() {
+//         if (isEmpty()) {
+//             cout << "Queue is empty!" << endl;
+//             return;
+//         }
+//         int count = size;
+//         int i = front;
+//         while (count--) {
+//             cout << arr[i] << " ";
+//             i = (i + 1) % capacity;
+//         }
+//         cout << endl;
+//     }
+// };
+
+// void interleaveQueue(Queue& q, int n) {
+//     if (n % 2 != 0) {
+//         cout << "Queue must have even number of elements!" << endl;
+//         return;
+//     }
+
+//     int half = n / 2;
+
+//     int* firstHalf = new int[half];
+
+//     for (int i = 0; i < half; i++) {
+//         firstHalf[i] = q.dequeue();
+//     }
+
+//     for (int i = 0; i < half; i++) {
+//         q.enqueue(firstHalf[i]);
+//         q.enqueue(q.dequeue());
+//     }
+
+//     delete[] firstHalf;
+// }
+
+// int main() {
+//     int n;
+//     cout << "Enter number of elements (even): ";
+//     cin >> n;
+
+//     if (n % 2 != 0) {
+//         cout << "Please enter an even number of elements." << endl;
+//         return 0;
+//     }
+
+//     Queue q(n);
+
+//     cout << "Enter " << n << " elements: ";
+//     for (int i = 0; i < n; i++) {
+//         int val;
+//         cin >> val;
+//         q.enqueue(val);
+//     }
+
+//     interleaveQueue(q, n);
+
+//     cout << "Interleaved Queue: ";
+//     q.display();
+
+//     return 0;
+// }
+// Q4.
+// #include <iostream>
+// using namespace std;
+
+// class Queue {
+//     char* arr;
+//     int front, rear, size, capacity;
+
+// public:
+//     Queue(int cap) {
+//         capacity = cap;
+//         arr = new char[capacity];
+//         front = 0;
+//         rear = -1;
+//         size = 0;
+//     }
+
+//     bool isEmpty() { return size == 0; }
+//     bool isFull() { return size == capacity; }
+
+//     void enqueue(char c) {
+//         if (isFull()) return;
+//         rear = (rear + 1) % capacity;
+//         arr[rear] = c;
+//         size++;
+//     }
+
+//     char dequeue() {
+//         if (isEmpty()) return '\0';
+//         char c = arr[front];
+//         front = (front + 1) % capacity;
+//         size--;
+//         return c;
+//     }
+
+//     char getFront() {
+//         if (isEmpty()) return '\0';
+//         return arr[front];
+//     }
+// };
+
+// int main() {
+//     char s[100];
+//     cout << "Enter a string: ";
+//     cin >> s;
+
+//     int freq[256] = {0};
+//     int len = 0;
+//     while (s[len] != '\0') len++;
+
+//     Queue q(len);
+
+//     for (int i = 0; i < len; i++) {
+//         char c = s[i];
+//         freq[(int)c]++;
+//         q.enqueue(c);
+
+//         while (!q.isEmpty() && freq[(int)q.getFront()] > 1) {
+//             q.dequeue();
+//         }
+
+//         if (q.isEmpty()) cout << -1 << " ";
+//         else cout << q.getFront() << " ";
+//     }
+
+//     cout << endl;
+//     return 0;
+// }
+// Q5.
+// #include <iostream>
+// using namespace std;
+
+// #define MAX 100
+
+// int q1[MAX], q2[MAX];
+// int front1 = 0, rear1 = -1, size1 = 0;
+// int front2 = 0, rear2 = -1, size2 = 0;
+
+// bool isEmpty1() { return size1 == 0; }
+// bool isEmpty2() { return size2 == 0; }
+// bool isFull1() { return size1 == MAX; }
+// bool isFull2() { return size2 == MAX; }
+
+// void enqueue1(int x) {
+//     if (isFull1()) return;
+//     rear1 = (rear1 + 1) % MAX;
+//     q1[rear1] = x;
+//     size1++;
+// }
+
+// void enqueue2(int x) {
+//     if (isFull2()) return;
+//     rear2 = (rear2 + 1) % MAX;
+//     q2[rear2] = x;
+//     size2++;
+// }
+
+// int dequeue1() {
+//     if (isEmpty1()) return -1;
+//     int val = q1[front1];
+//     front1 = (front1 + 1) % MAX;
+//     size1--;
+//     return val;
+// }
+
+// int dequeue2() {
+//     if (isEmpty2()) return -1;
+//     int val = q2[front2];
+//     front2 = (front2 + 1) % MAX;
+//     size2--;
+//     return val;
+// }
+
+// void push(int x) {
+//     enqueue2(x);
+//     while (!isEmpty1()) {
+//         enqueue2(dequeue1());
+//     }
+//     while (!isEmpty2()) {
+//         enqueue1(dequeue2());
+//     }
+// }
+
+// int pop() {
+//     if (isEmpty1()) return -1;
+//     return dequeue1();
+// }
+
+// int main() {
+//     int choice, val;
+//     while (true) {
+//         cout << "\nStack using Two Queues:\n";
+//         cout << "1. Push\n2. Pop\n3. Exit\nEnter choice: ";
+//         cin >> choice;
+
+//         if (choice == 1) {
+//             cout << "Enter value to push: ";
+//             cin >> val;
+//             push(val);
+//         } else if (choice == 2) {
+//             val = pop();
+//             if (val == -1) cout << "Stack is empty\n";
+//             else cout << "Popped: " << val << endl;
+//         } else if (choice == 3) {
+//             break;
+//         } else {
+//             cout << "Invalid choice\n";
+//         }
+//     }
+//     return 0;
+// }
+// #include <iostream>
+// using namespace std;
+
+// #define MAX 100
+
+// int q[MAX];
+// int front = 0, rear = -1, sizeQ = 0;
+
+// bool isEmpty() { return sizeQ == 0; }
+// bool isFull() { return sizeQ == MAX; }
+
+// void enqueue(int x) {
+//     if (isFull()) return;
+//     rear = (rear + 1) % MAX;
+//     q[rear] = x;
+//     sizeQ++;
+// }
+
+// int dequeue() {
+//     if (isEmpty()) return -1;
+//     int val = q[front];
+//     front = (front + 1) % MAX;
+//     sizeQ--;
+//     return val;
+// }
+
+// void push(int x) {
+//     enqueue(x);
+//     for (int i = 0; i < sizeQ - 1; i++) {
+//         enqueue(dequeue());
+//     }
+// }
+
+// int pop() {
+//     if (isEmpty()) return -1;
+//     return dequeue();
+// }
+
+// int main() {
+//     int choice, val;
+//     while (true) {
+//         cout << "\nStack using One Queue:\n";
+//         cout << "1. Push\n2. Pop\n3. Exit\nEnter choice: ";
+//         cin >> choice;
+
+//         if (choice == 1) {
+//             cout << "Enter value to push: ";
+//             cin >> val;
+//             push(val);
+//         } else if (choice == 2) {
+//             val = pop();
+//             if (val == -1) cout << "Stack is empty\n";
+//             else cout << "Popped: " << val << endl;
+//         } else if (choice == 3) {
+//             break;
+//         } else {
+//             cout << "Invalid choice\n";
+//         }
+//     }
+//     return 0;
+// }
