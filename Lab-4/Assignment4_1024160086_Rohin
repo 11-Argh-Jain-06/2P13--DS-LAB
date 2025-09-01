@@ -1,0 +1,452 @@
+//Name:Rohin
+//Roll No:1024160086
+
+//Q1.
+#include<iostream>
+using namespace std;
+
+class queue {
+    int arr[5];
+    int front, rear;
+
+public:
+    queue() {
+        front = -1;
+        rear = -1;
+    }
+
+    bool isFull() {
+        return rear == 4;
+    }
+
+    bool isEmpty() {
+        return front == -1;
+    }
+
+    void enqueue(int val) {
+        if (isFull()) {
+            cout << "Queue Overflow" << endl;
+            return;
+        } else {
+            if (front == -1) front = 0;
+            rear++;
+            arr[rear] = val;
+        }
+    }
+
+    void dequeue() {
+        if (isEmpty()) {
+            cout << "Queue Underflow" << endl;
+            return;
+        } else {
+            if (front == rear) { 
+                front = rear = -1; 
+            } else {
+                front++;
+            }
+        }
+    }
+
+    void peek() {
+        if (isEmpty()) {
+            cout << "Queue is empty" << endl;
+            return;
+        } else {
+            cout << arr[front] << endl;
+        }
+    }
+
+    void display() {
+        if (isEmpty()) {
+            cout << "Queue is empty" << endl;
+            return;
+        } else {
+            for (int i = front; i <= rear; i++) {
+                cout << arr[i] << " ";
+            }
+            cout << endl;
+        }
+    }
+};
+
+int main() {
+    queue q;
+    int choice, val;
+
+    while (true) {
+        cout << "1. Enqueue\n2. Dequeue\n3. Peek\n4. Display\n5. isEmpty\n6. isFull\n7. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                cout << "Enter value to enqueue: ";
+                cin >> val;
+                q.enqueue(val);
+                break;
+            case 2:
+                q.dequeue();
+                break;
+            case 3:
+                q.peek();
+                break;
+            case 4:
+                q.display();
+                break;
+            case 5:
+                cout << (q.isEmpty() ? "Queue is empty" : "Queue is not empty") << endl;
+                break;
+            case 6:
+                cout << (q.isFull() ? "Queue is full" : "Queue is not full") << endl;
+                break;
+            case 7:
+                exit(0);
+            default:
+                cout << "Invalid choice" << endl;
+        }
+    }
+
+    return 0;
+}
+
+//Q2.
+#include<iostream>
+using namespace std;
+
+class circularqueue {
+    int arr[5];
+    int front, rear;
+
+public:
+    circularqueue() {
+        front = -1;
+        rear = -1;
+    }
+
+    bool isFull() {
+        return (rear + 1) % 5 == front;
+    }
+
+    bool isEmpty() {
+        return front == -1;
+    }
+
+    void enqueue(int val) {
+        if (isFull()) {
+            cout << "Queue Overflow" << endl;
+            return;
+        }
+        if (front == -1) front = 0;  
+        rear = (rear + 1) % 5;
+        arr[rear] = val;
+    }
+
+    void dequeue() {
+        if (isEmpty()) {
+            cout << "Queue Underflow" << endl;
+            return;
+        }
+        if (front == rear) {  
+            front = rear = -1;
+        } else {
+            front = (front + 1) % 5;
+        }
+    }
+
+    void peek() {
+        if (isEmpty()) {
+            cout << "Queue is empty" << endl;
+            return;
+        }
+        cout << arr[front] << endl;
+    }
+
+    void display() {
+        if (isEmpty()) {
+            cout << "Queue is empty" << endl;
+            return;
+        }
+        int i = front;
+        while (true) {
+            cout << arr[i] << " ";
+            if (i == rear) break;
+            i = (i + 1) % 5;
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    circularqueue cq;
+    int choice, val;
+
+    while (true) {
+        cout << "\n1. Enqueue" << endl;
+        cout << "2. Dequeue" << endl;
+        cout << "3. Peek" << endl;
+        cout << "4. Display" << endl;
+        cout << "5. isEmpty" << endl;
+        cout << "6. isFull" << endl;
+        cout << "7. Exit" << endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                cout << "Enter value to enqueue: ";
+                cin >> val;
+                cq.enqueue(val);
+                break;
+            case 2:
+                cq.dequeue();
+                break;
+            case 3:
+                cq.peek();
+                break;
+            case 4:
+                cq.display();
+                break;
+            case 5:
+                cout << (cq.isEmpty() ? "Queue is empty" : "Queue is not empty") << endl;
+                break;
+            case 6:
+                cout << (cq.isFull() ? "Queue is full" : "Queue is not full") << endl;
+                break;
+            case 7:
+                exit(0);
+            default:
+                cout << "Invalid choice" << endl;
+        }
+    }
+
+    return 0;
+}
+
+
+//Q3.
+#include <iostream>
+#include <queue>
+#include <stack>
+using namespace std;
+
+void interleaveQueue(queue<int> &q) {
+    if (q.size() % 2 != 0) {
+        cout << "Queue size must be even to interleave." << endl;
+        return;
+    }
+
+    int halfSize = q.size() / 2;
+    stack<int> s;
+
+    
+    for (int i = 0; i < halfSize; i++) {
+        s.push(q.front());
+        q.pop();
+    }
+
+    
+    while (!s.empty()) {
+        q.push(s.top());
+        s.pop();
+    }
+
+    
+    for (int i = 0; i < halfSize; i++) {
+        q.push(q.front());
+        q.pop();
+    }
+
+   
+    for (int i = 0; i < halfSize; i++) {
+        s.push(q.front());
+        q.pop();
+    }
+
+    
+    while (!s.empty()) {
+        q.push(s.top());
+        s.pop();
+        q.push(q.front());
+        q.pop();
+    }
+}
+
+int main() {
+    queue<int> q;
+    int n, x;
+    cout << "Enter number of elements (even): ";
+    cin >> n;
+
+    cout << "Enter elements: ";
+    for (int i = 0; i < n; i++) {
+        cin >> x;
+        q.push(x);
+    }
+
+    interleaveQueue(q);
+
+    cout << "Interleaved Queue: ";
+    while (!q.empty()) {
+        cout << q.front() << " ";
+        q.pop();
+    }
+    cout << endl;
+
+    return 0;
+}
+
+
+//Q4.
+#include <iostream>
+#include <queue>
+#include <string>
+using namespace std;
+
+void firstNonRepeating(string s) {
+    queue<char> q;
+    int freq[26] = {0}; 
+
+    for (char ch : s) {
+        freq[ch - 'a']++;
+        q.push(ch);
+
+        
+        while (!q.empty() && freq[q.front() - 'a'] > 1) {
+            q.pop();
+        }
+
+        if (!q.empty())
+            cout << q.front() << " ";
+        else
+            cout << -1 << " ";
+    }
+    cout << endl;
+}
+
+int main() {
+    string s;
+    cout << "Enter string ";
+    cin >> s;
+
+    firstNonRepeating(s);
+
+    return 0;
+}
+
+
+//Q5(a)
+#include <iostream>
+#include <queue>
+using namespace std;
+
+class Stack {
+    queue<int> q1, q2;
+
+public:
+    void push(int x) {
+        q2.push(x);
+        while (!q1.empty()) {  
+            q2.push(q1.front());
+            q1.pop();
+        }
+        swap(q1, q2);           
+    }
+
+    void pop() {
+        if (q1.empty()) {
+            cout << "Stack Underflow\n";
+            return;
+        }
+        q1.pop();
+    }
+
+    int top() {
+        if (q1.empty()) {
+            cout << "Stack is empty\n";
+            return -1;
+        }
+        return q1.front();
+    }
+
+    bool isEmpty() {
+        return q1.empty();
+    }
+};
+
+int main() {
+    Stack s;
+
+    s.push(1);
+    s.push(2);
+    s.push(3);
+
+    cout << "Top: " << s.top() << endl;
+    s.pop();
+    cout << "Top: " << s.top() << endl; 
+    s.pop();
+    cout << "Top: " << s.top() << endl; 
+    s.pop();
+    s.pop();                            
+
+    return 0;
+}
+
+
+//Q5(b)
+#include <iostream>
+#include <queue>
+using namespace std;
+
+class Stack {
+    queue<int> q;
+
+public:
+    void push(int x) {
+        int size = q.size();
+        q.push(x);
+
+        
+        for (int i = 0; i < size; i++) {
+            q.push(q.front());
+            q.pop();
+        }
+    }
+
+    void pop() {
+        if (q.empty()) {
+            cout << "Stack Underflow\n";
+            return;
+        }
+        q.pop();
+    }
+
+    int top() {
+        if (q.empty()) {
+            cout << "Stack is empty\n";
+            return -1;
+        }
+        return q.front();
+    }
+
+    bool isEmpty() {
+        return q.empty();
+    }
+};
+
+int main() {
+    Stack s;
+
+    s.push(1);
+    s.push(2);
+    s.push(3);
+
+    cout << "Top: " << s.top() << endl;
+    s.pop();
+    cout << "Top: " << s.top() << endl; 
+    s.pop();
+    cout << "Top: " << s.top() << endl; 
+    s.pop();
+    s.pop();                            
+
+    return 0;
+}
